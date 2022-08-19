@@ -1,0 +1,17 @@
+name: Java CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Deploy to heroku using an action
+        uses: akhileshns/heroku-deploy@v3.2.6
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
+          heroku_app_name: "github-actions-heroku-demo" #Must be unique in Heroku
+          heroku_email: "codingsnack@gmail.com"
