@@ -12,6 +12,6 @@ jobs:
       - name: Deploy to heroku using an action
         uses: akhileshns/heroku-deploy@v3.2.6
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
-          heroku_app_name: "github-actions-heroku-demo" #Must be unique in Heroku
-          heroku_email: "codingsnack@gmail.com"
+          heroku_api_key: "f687a341-d519-44fb-b5cb-2788967adc31"
+          heroku_app_name: "shortline-app" #Must be unique in Heroku
+          heroku_email: "sssimiao10@gmail.com"
