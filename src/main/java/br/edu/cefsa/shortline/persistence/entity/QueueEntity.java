@@ -17,9 +17,6 @@ public class QueueEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private CompanyEntity company;
-
     private String description;
 
     private LocalDateTime beginDate;

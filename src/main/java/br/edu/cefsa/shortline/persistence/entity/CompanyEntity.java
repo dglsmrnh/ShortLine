@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class CompanyEntity {
 
     @OneToOne
     private UserEntity user;
+
+    @OneToMany
+    private List<QueueEntity> queues;
 
     private String name;
 
