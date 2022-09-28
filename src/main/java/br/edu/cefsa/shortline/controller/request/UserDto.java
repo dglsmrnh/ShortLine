@@ -1,4 +1,4 @@
-package br.edu.cefsa.shortline.request;
+package br.edu.cefsa.shortline.controller.request;
 
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;

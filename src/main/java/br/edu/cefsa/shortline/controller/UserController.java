@@ -1,8 +1,7 @@
-package br.edu.cefsa.shortline;
+package br.edu.cefsa.shortline.controller;
 
 import br.edu.cefsa.shortline.config.security.UserDetailsServiceImpl;
-import br.edu.cefsa.shortline.persistence.entity.UserEntity;
-import br.edu.cefsa.shortline.request.UserDto;
+import br.edu.cefsa.shortline.controller.request.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

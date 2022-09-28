@@ -2,7 +2,7 @@ package br.edu.cefsa.shortline.config.security;
 
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.UserRepository;
-import br.edu.cefsa.shortline.request.UserDto;
+import br.edu.cefsa.shortline.controller.request.UserDto;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
