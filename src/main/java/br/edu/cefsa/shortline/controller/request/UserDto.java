@@ -21,12 +21,15 @@ public class UserDto {
 
     private String key;
 
+    private Boolean isCompany;
+
     public UserEntity toEntity(){
         return UserEntity.builder()
                 .userId(userId)
                 .username(username)
                 .password(password)
                 .type(type)
+                .isCompany(isCompany)
                 .build();
     }
 }

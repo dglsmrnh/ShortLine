@@ -17,16 +17,22 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity implements UserDetails, Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
+
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String type;
+
+    @Column(nullable = false)
+    private Boolean isCompany;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

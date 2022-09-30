@@ -3,20 +3,18 @@ package br.edu.cefsa.shortline.config.security;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.UserRepository;
 import br.edu.cefsa.shortline.controller.request.UserDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Objects;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
-
-    private final UserRepository userRepository;
-
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+public record UserDetailsServiceImpl(UserRepository userRepository) implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,12 +25,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userEntityModel.getAuthorities());
     }
 
-    public void saveUser(UserDto userDto){
+    public void saveUser(UserDto userDto) {
         UserEntity user = userDto.toEntity();
-        if (user.getType().equalsIgnoreCase("A")){
-            user.setPassword(user.getUsername() + userDto.getKey());
-        }
+        validatePassword(userDto, user);
 
         userRepository.save(user);
+    }
+
+    private void validatePassword(UserDto userDto, UserEntity user) {
+        if (user.getType().equalsIgnoreCase("OAuth")) {
+            user.setPassword(user.getUsername() + userDto.getKey());
+        } else if (Objects.isNull(user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Usuário padrão sem senha!");
+        }
     }
 }
