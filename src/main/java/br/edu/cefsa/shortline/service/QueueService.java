@@ -14,4 +14,8 @@ public class QueueService {
     public void updateQueue(QueueRequest request){
 
     }
+
+    public void saveQueue(QueueRequest request){
+        repository.save(request.toNewEntity());
+    }
 }

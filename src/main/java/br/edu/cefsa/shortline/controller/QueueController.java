@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("/queues")
 public class QueueController {
@@ -20,5 +22,14 @@ public class QueueController {
         service.updateQueue(request);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createQueue(@RequestBody QueueRequest request){
+        service.saveQueue(request);
+
+        URI uri = URI.create("/queues");
+
+        return ResponseEntity.created(uri).build();
     }
 }

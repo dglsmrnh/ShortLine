@@ -22,9 +22,22 @@ public class QueueRequest {
 
     private LocalDateTime endDate;
 
-    private Long maxSize;
+    private Integer maxSize;
 
-    private Long vacancies;
+    private Integer vacancies;
 
     private Integer averageWaiting;
+
+    public QueueEntity toNewEntity(){
+        return QueueEntity.builder()
+                .averageWaiting(0)
+                .beginDate(beginDate)
+                .description(description)
+                .lastCode(0L)
+                .endDate(endDate)
+                .maxSize(maxSize)
+                .vacancies(maxSize.longValue())
+                .waitInLine(0L)
+                .build();
+    }
 }

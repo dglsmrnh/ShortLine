@@ -25,11 +25,11 @@ public class QueueEntity {
 
     private Integer maxSize;
 
-    private Long lastCode;
+    private Integer lastCode;
 
-    private Long waitInLine;
+    private Integer waitInLine;
 
-    private Long vacancies;
+    private Integer vacancies;
 
     private Integer averageWaiting;
 }

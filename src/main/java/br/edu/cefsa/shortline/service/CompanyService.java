@@ -1,5 +1,6 @@
 package br.edu.cefsa.shortline.service;
 
+import br.edu.cefsa.shortline.controller.response.CompanyDto;
 import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class CompanyService {
             return List.of(repository.getCompanyFromUser(userId).orElseThrow());
 
         return repository.findAll();
+    }
+
+    public void saveCompany(CompanyDto request){
+        repository.save(request.toEntity());
     }
 }
