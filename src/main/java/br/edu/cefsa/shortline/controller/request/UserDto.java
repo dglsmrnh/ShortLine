@@ -2,12 +2,14 @@ package br.edu.cefsa.shortline.controller.request;
 
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Column;
 import java.util.UUID;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class UserDto {
 
@@ -30,6 +32,13 @@ public class UserDto {
                 .password(password)
                 .type(type)
                 .isCompany(isCompany)
+                .build();
+    }
+
+    public static UserDto toDto(UserEntity user){
+        return UserDto.builder()
+                .userId(user.getUserId())
+                .username(user.getUsername())
                 .build();
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -38,5 +39,10 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
         } else if (Objects.isNull(user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Usuário padrão sem senha!");
         }
+    }
+
+    public List<UserDto> getUsers(){
+        List<UserEntity> users = userRepository.findAll();
+        return users.stream().map(UserDto::toDto).toList();
     }
 }
