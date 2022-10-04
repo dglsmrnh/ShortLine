@@ -25,4 +25,8 @@ public class CompanyService {
     public void saveCompany(CompanyDto request){
         repository.save(request.toEntity());
     }
+
+    public void updateCompany(CompanyDto request){
+
+    }
 }

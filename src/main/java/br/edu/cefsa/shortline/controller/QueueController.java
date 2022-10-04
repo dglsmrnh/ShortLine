@@ -1,6 +1,7 @@
 package br.edu.cefsa.shortline.controller;
 
 import br.edu.cefsa.shortline.controller.request.QueueRequest;
+import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,9 @@ public class QueueController {
     @Autowired
     private QueueService service;
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateQueue(@PathVariable("id") Long idQueue,
-                                            @RequestBody QueueRequest request){
+                                            @RequestBody QueueRequest request) {
         request.setId(idQueue);
         service.updateQueue(request);
 
@@ -25,11 +26,17 @@ public class QueueController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createQueue(@RequestBody QueueRequest request){
+    public ResponseEntity<Void> createQueue(@RequestBody QueueRequest request) {
         service.saveQueue(request);
 
         URI uri = URI.create("/queues");
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<QueueEntity> getQueue(@PathVariable("id") Long idQueue) {
+        QueueEntity queue = service.getQueueById(idQueue);
+        return ResponseEntity.ok(queue);
     }
 }

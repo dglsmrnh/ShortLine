@@ -32,4 +32,6 @@ public class QueueEntity {
     private Integer vacancies;
 
     private Integer averageWaiting;
+
+    private String status;
 }

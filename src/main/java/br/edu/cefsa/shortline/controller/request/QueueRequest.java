@@ -28,16 +28,32 @@ public class QueueRequest {
 
     private Integer averageWaiting;
 
-    public QueueEntity toNewEntity(){
-        return QueueEntity.builder()
+    private String status;
+
+    public QueueEntity toNewEntity() {
+        return builder()
+                .lastCode(0)
                 .averageWaiting(0)
+                .waitInLine(0)
+                .status("A")
+                .build();
+    }
+
+    public QueueEntity toUpdateEntity(QueueEntity entity) {
+        return builder()
+                .lastCode(entity.getLastCode())
+                .averageWaiting(entity.getAverageWaiting())
+                .waitInLine(entity.getWaitInLine())
+                .status(status)
+                .build();
+    }
+
+    public QueueEntity.QueueEntityBuilder builder() {
+        return QueueEntity.builder()
                 .beginDate(beginDate)
                 .description(description)
-                .lastCode(0L)
                 .endDate(endDate)
                 .maxSize(maxSize)
-                .vacancies(maxSize.longValue())
-                .waitInLine(0L)
-                .build();
+                .vacancies(maxSize);
     }
 }
