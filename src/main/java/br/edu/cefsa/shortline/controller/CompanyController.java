@@ -26,8 +26,9 @@ public class CompanyController {
     }
 
     @PostMapping("/companies")
-    public ResponseEntity<Void> saveCompany(CompanyDto company){
+    public ResponseEntity<Void> saveCompany(@RequestBody CompanyDto company){
         companyService.saveCompany(company);
+
         URI uri = URI.create("/companies");
 
         return ResponseEntity.created(uri).build();

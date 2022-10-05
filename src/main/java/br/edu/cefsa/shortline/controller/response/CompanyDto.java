@@ -4,6 +4,7 @@ import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class CompanyDto {
 
