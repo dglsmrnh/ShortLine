@@ -5,10 +5,7 @@ import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -29,7 +26,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveCompany(CompanyDto company){
+    public ResponseEntity<Void> saveCompany(@RequestBody CompanyDto company){
         companyService.saveCompany(company);
 
         URI uri = URI.create("/companies");
