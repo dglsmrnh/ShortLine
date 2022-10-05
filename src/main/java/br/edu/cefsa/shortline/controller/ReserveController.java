@@ -4,10 +4,7 @@ import br.edu.cefsa.shortline.controller.request.ReserveRequest;
 import br.edu.cefsa.shortline.service.ReserveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -20,6 +17,13 @@ public class ReserveController {
 
     @PostMapping
     public ResponseEntity<Void> createReservePendingApprove(@RequestBody ReserveRequest request){
+        reserveService.saveReserve(request);
+        var uri = URI.create("/reserves");
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateReserve(@RequestBody ReserveRequest request){
         reserveService.saveReserve(request);
         var uri = URI.create("/reserves");
         return ResponseEntity.created(uri).build();

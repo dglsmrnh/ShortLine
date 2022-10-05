@@ -21,4 +21,8 @@ public class ReserveService {
         ReserveEntity reserveEntity = request.toNewReserveEntity();
         repository.save(reserveEntity);
     }
+
+    public void updateReserve(ReserveRequest request){
+
+    }
 }

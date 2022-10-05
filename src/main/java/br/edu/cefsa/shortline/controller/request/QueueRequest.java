@@ -31,8 +31,7 @@ public class QueueRequest {
     private String status;
 
     public QueueEntity toNewEntity() {
-        return builder()
-                .lastCode(0)
+        return builder().lastCode(0)
                 .averageWaiting(0)
                 .waitInLine(0)
                 .status("A")
@@ -40,8 +39,7 @@ public class QueueRequest {
     }
 
     public QueueEntity toUpdateEntity(QueueEntity entity) {
-        return builder()
-                .lastCode(entity.getLastCode())
+        return builder().lastCode(entity.getLastCode())
                 .averageWaiting(entity.getAverageWaiting())
                 .waitInLine(entity.getWaitInLine())
                 .status(status)
@@ -50,9 +48,7 @@ public class QueueRequest {
 
     public QueueEntity.QueueEntityBuilder builder() {
         return QueueEntity.builder()
-                .beginDate(beginDate)
                 .description(description)
-                .endDate(endDate)
                 .maxSize(maxSize)
                 .vacancies(maxSize);
     }
