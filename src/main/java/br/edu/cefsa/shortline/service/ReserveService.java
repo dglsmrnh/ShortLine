@@ -17,12 +17,20 @@ public class ReserveService {
     @Autowired
     private QueueService queueService;
 
-    public void saveReserve(ReserveRequest request){
+    public void saveReserve(ReserveRequest request) {
         ReserveEntity reserveEntity = request.toNewReserveEntity();
         repository.save(reserveEntity);
     }
 
-    public void updateReserve(ReserveRequest request){
+    public void updateReserve(ReserveRequest request) {
+        ReserveEntity reserveEntity = repository.findById(request.getId())
+                .orElseThrow();
 
+        if (request.getStatus().equalsIgnoreCase("A") &&
+                !reserveEntity.getStatus().equalsIgnoreCase("A")) {
+            QueueEntity queue = queueService.getQueueById(request.getIdQueue());
+            reserveEntity.setCode(queue.getLastCode() + 1);
+            repository.save(reserveEntity);
+        }
     }
 }
