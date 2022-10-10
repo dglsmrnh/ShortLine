@@ -1,13 +1,11 @@
 package br.edu.cefsa.shortline.controller.response;
 
 import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
-import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class CompanyDto {
 
     private Long idUser;
 
-    private List<Long> queues;
+    private Long idQueue;
 
     private String name;
 
@@ -39,7 +37,6 @@ public class CompanyDto {
                 .latitude(latitude)
                 .longitude(longitude)
                 .name(name)
-                .queues(List.of())
                 .postalCode(postalCode)
                 .build();
     }

@@ -21,8 +21,8 @@ public class CompanyEntity {
     @OneToOne
     private UserEntity user;
 
-    @OneToMany
-    private List<QueueEntity> queues;
+    @OneToOne
+    private QueueEntity queues;
 
     private String name;
 

@@ -15,6 +15,9 @@ public class CompanyService {
     @Autowired
     private CompanyRepository repository;
 
+    @Autowired
+    private QueueService queueService;
+
     public List<CompanyEntity> getAll(Long userId) {
         if (Objects.nonNull(userId))
             return List.of(repository.getCompanyFromUser(userId).orElseThrow());
