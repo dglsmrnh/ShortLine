@@ -19,18 +19,27 @@ public class CompanyController {
 
     @GetMapping("/users/{userId}/companies")
     public ResponseEntity<List<CompanyEntity>> getAllCompany(@PathVariable("userId")
-                                                                         Long userId) {
+                                                                     Long userId) {
         List<CompanyEntity> companies = companyService.getAll(userId);
 
         return ResponseEntity.ok(companies);
     }
 
     @PostMapping("/companies")
-    public ResponseEntity<Void> saveCompany(@RequestBody CompanyDto company){
+    public ResponseEntity<Void> saveCompany(@RequestBody CompanyDto company) {
         companyService.saveCompany(company);
 
         URI uri = URI.create("/companies");
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/companies/{id}")
+    public ResponseEntity<Void> updateCompany(@PathVariable("id") Long id,
+                                              @RequestBody CompanyDto company) {
+        company.setId(id);
+        companyService.updateCompany(company);
+
+        return ResponseEntity.noContent().build();
     }
 }

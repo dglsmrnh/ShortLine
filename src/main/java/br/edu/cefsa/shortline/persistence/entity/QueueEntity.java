@@ -30,4 +30,10 @@ public class QueueEntity {
     private Integer averageWaiting;
 
     private String status;
+
+    public static QueueEntity getChild(Long id){
+        return QueueEntity.builder()
+                .id(id)
+                .build();
+    }
 }

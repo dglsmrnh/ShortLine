@@ -30,6 +30,11 @@ public class CompanyService {
     }
 
     public void updateCompany(CompanyDto request){
+        CompanyEntity companyEntity = repository.findById(request.getId())
+                .orElseThrow();
 
+        CompanyEntity entityUpdated = request.updateEntity(companyEntity);
+
+        repository.save(entityUpdated);
     }
 }

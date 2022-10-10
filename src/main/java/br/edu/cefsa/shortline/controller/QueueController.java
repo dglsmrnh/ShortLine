@@ -34,7 +34,7 @@ public class QueueController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<QueueEntity> getQueue(@PathVariable("id") Long idQueue) {
         QueueEntity queue = service.getQueueById(idQueue);
         return ResponseEntity.ok(queue);

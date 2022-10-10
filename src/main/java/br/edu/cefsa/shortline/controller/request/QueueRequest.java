@@ -18,10 +18,6 @@ public class QueueRequest {
 
     private String description;
 
-    private LocalDateTime beginDate;
-
-    private LocalDateTime endDate;
-
     private Integer maxSize;
 
     private Integer vacancies;
