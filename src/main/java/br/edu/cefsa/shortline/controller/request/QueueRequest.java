@@ -55,6 +55,10 @@ public class QueueRequest {
                 .build();
     }
 
+    public static QueueEntity toResponse(QueueEntity entity){
+        return QueueEntity.builder().build();
+    }
+
     public QueueEntity.QueueEntityBuilder builder() {
         return QueueEntity.builder()
                 .description(description)
