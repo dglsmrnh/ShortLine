@@ -1,5 +1,6 @@
 package br.edu.cefsa.shortline.controller.request;
 
+import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+
+import static java.util.Objects.nonNull;
 
 @Getter
 @AllArgsConstructor
@@ -15,6 +19,8 @@ public class QueueRequest {
 
     @Setter
     private Long id;
+
+    private Long idCompany;
 
     private String description;
 
@@ -27,9 +33,13 @@ public class QueueRequest {
     private String status;
 
     public QueueEntity toNewEntity() {
+        CompanyEntity companyEntity = nonNull(idCompany) ?
+                CompanyEntity.builder().id(idCompany).build() : null;
+
         return builder().lastCode(0)
                 .averageWaiting(0)
                 .waitInLine(0)
+                .companyEntity(companyEntity)
                 .status("A")
                 .build();
     }

@@ -17,6 +17,9 @@ public class QueueEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    private CompanyEntity companyEntity;
+
     private String description;
 
     private Integer maxSize;
