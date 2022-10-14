@@ -28,7 +28,7 @@ public class ReserveService {
 
         if (request.getStatus().equalsIgnoreCase("A") &&
                 !reserveEntity.getStatus().equalsIgnoreCase("A")) {
-            QueueEntity queue = queueService.getQueueById(request.getIdQueue());
+            QueueEntity queue = queueService.getQueueEntityById(request.getIdQueue());
             reserveEntity.setCode(queue.getLastCode() + 1);
             repository.save(reserveEntity);
         }

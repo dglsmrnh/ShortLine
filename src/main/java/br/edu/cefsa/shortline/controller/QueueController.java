@@ -1,7 +1,6 @@
 package br.edu.cefsa.shortline.controller;
 
 import br.edu.cefsa.shortline.controller.request.QueueRequest;
-import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +34,8 @@ public class QueueController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<QueueEntity> getQueue(@PathVariable("id") Long idQueue) {
-        QueueEntity queue = service.getQueueById(idQueue);
+    public ResponseEntity<QueueRequest> getQueue(@PathVariable("id") Long idQueue) {
+        var queue = service.getQueueById(idQueue);
         return ResponseEntity.ok(queue);
     }
 }

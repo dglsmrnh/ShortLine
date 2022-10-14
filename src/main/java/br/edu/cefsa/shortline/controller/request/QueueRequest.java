@@ -2,20 +2,16 @@ package br.edu.cefsa.shortline.controller.request;
 
 import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
-import br.edu.cefsa.shortline.persistence.entity.UserEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.nonNull;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QueueRequest {
@@ -39,7 +35,7 @@ public class QueueRequest {
         CompanyEntity companyEntity = nonNull(idCompany) ?
                 CompanyEntity.builder().id(idCompany).build() : null;
 
-        return builder().lastCode(0)
+        return builderDefault().lastCode(0)
                 .averageWaiting(0)
                 .waitInLine(0)
                 .companyEntity(companyEntity)
@@ -48,14 +44,26 @@ public class QueueRequest {
     }
 
     public QueueEntity toUpdateEntity(QueueEntity entity) {
-        return builder().lastCode(entity.getLastCode())
+        return builderDefault().lastCode(entity.getLastCode())
                 .averageWaiting(entity.getAverageWaiting())
                 .waitInLine(entity.getWaitInLine())
                 .status(status)
                 .build();
     }
 
-    public QueueEntity.QueueEntityBuilder builder() {
+    public static QueueRequest toResponse(QueueEntity queueEntity){
+        return QueueRequest.builder()
+                .id(queueEntity.getId())
+                .status(queueEntity.getStatus())
+                .idCompany(queueEntity.getCompanyEntity().getId())
+                .averageWaiting(queueEntity.getAverageWaiting())
+                .maxSize(queueEntity.getMaxSize())
+                .vacancies(queueEntity.getVacancies())
+                .description(queueEntity.getDescription())
+                .build();
+    }
+
+    public QueueEntity.QueueEntityBuilder builderDefault() {
         return QueueEntity.builder()
                 .description(description)
                 .maxSize(maxSize)

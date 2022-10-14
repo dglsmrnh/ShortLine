@@ -64,4 +64,17 @@ public class CompanyDto {
         entity.setPostalCode(postalCode);
         return entity;
     }
+
+    public static CompanyDto toResponse(CompanyEntity companyEntity){
+        return CompanyDto.builder()
+                .id(companyEntity.getId())
+                .addressNumber(companyEntity.getAddressNumber())
+                .longitude(companyEntity.getLongitude())
+                .latitude(companyEntity.getLatitude())
+                .postalCode(companyEntity.getPostalCode())
+                .idQueue(companyEntity.getQueues().getId())
+                .name(companyEntity.getName())
+                .idUser(companyEntity.getUser().getUserId())
+                .build();
+    }
 }

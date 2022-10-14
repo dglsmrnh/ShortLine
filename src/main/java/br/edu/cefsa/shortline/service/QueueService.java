@@ -18,7 +18,12 @@ public class QueueService {
         repository.save(request.toUpdateEntity(queueEntity));
     }
 
-    public QueueEntity getQueueById(Long id){
+    public QueueRequest getQueueById(Long id){
+        QueueEntity queueEntity = getQueueEntityById(id);
+        return QueueRequest.toResponse(queueEntity);
+    }
+
+    public QueueEntity getQueueEntityById(Long id){
         return repository.findById(id)
                 .orElseThrow();
     }
