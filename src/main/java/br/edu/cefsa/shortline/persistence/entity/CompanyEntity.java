@@ -21,7 +21,7 @@ public class CompanyEntity {
     @OneToOne
     private UserEntity user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private QueueEntity queues;
 
     private String name;

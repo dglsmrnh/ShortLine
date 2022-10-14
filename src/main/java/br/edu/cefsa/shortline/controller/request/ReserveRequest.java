@@ -3,6 +3,7 @@ package br.edu.cefsa.shortline.controller.request;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReserveRequest {
 
     private Long id;
