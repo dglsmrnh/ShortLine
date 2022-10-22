@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -66,13 +68,16 @@ public class CompanyDto {
     }
 
     public static CompanyDto toResponse(CompanyEntity companyEntity){
+        var queueId = isNull(companyEntity.getQueues()) ?
+                null : companyEntity.getQueues().getId();
+
         return CompanyDto.builder()
                 .id(companyEntity.getId())
                 .addressNumber(companyEntity.getAddressNumber())
                 .longitude(companyEntity.getLongitude())
                 .latitude(companyEntity.getLatitude())
                 .postalCode(companyEntity.getPostalCode())
-                .idQueue(companyEntity.getQueues().getId())
+                .idQueue(queueId)
                 .name(companyEntity.getName())
                 .idUser(companyEntity.getUser().getUserId())
                 .build();

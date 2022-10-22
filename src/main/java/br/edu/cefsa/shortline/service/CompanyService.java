@@ -10,6 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class CompanyService {
 
@@ -20,10 +22,11 @@ public class CompanyService {
     private QueueService queueService;
 
     public CompanyDto getByUserId(Long userId) {
-        if (Objects.isNull(userId))
+        if (isNull(userId))
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 
-        var companyEntity = repository.getCompanyFromUser(userId).orElseThrow();
+        var companyEntity = repository.getCompanyFromUser(userId)
+                .orElseThrow();
         return CompanyDto.toResponse(companyEntity);
     }
 
