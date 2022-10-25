@@ -1,12 +1,13 @@
 package br.edu.cefsa.shortline.service;
 
-import br.edu.cefsa.shortline.controller.request.ReserveRequest;
+import br.edu.cefsa.shortline.controller.request.ReserveDto;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
-import br.edu.cefsa.shortline.persistence.repository.QueueRepository;
 import br.edu.cefsa.shortline.persistence.repository.ReserveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReserveService {
@@ -17,12 +18,18 @@ public class ReserveService {
     @Autowired
     private QueueService queueService;
 
-    public void saveReserve(ReserveRequest request) {
+    public List<ReserveDto> getAllReserves(){
+        List<ReserveEntity> reservesEntity = repository.findAll();
+
+        return reservesEntity.stream().map(ReserveDto::toReserveDto).toList();
+    }
+
+    public void saveReserve(ReserveDto request) {
         ReserveEntity reserveEntity = request.toNewReserveEntity();
         repository.save(reserveEntity);
     }
 
-    public void updateReserve(ReserveRequest request) {
+    public void updateReserve(ReserveDto request) {
         ReserveEntity reserveEntity = repository.findById(request.getId())
                 .orElseThrow();
 
