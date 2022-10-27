@@ -1,5 +1,6 @@
 package br.edu.cefsa.shortline.config.security;
 
+import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.UserRepository;
 import br.edu.cefsa.shortline.controller.request.UserDto;
@@ -13,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+
+import static br.edu.cefsa.shortline.config.util.BagUtil.encoder;
 
 @Service
 public record UserDetailsServiceImpl(UserRepository userRepository) implements UserDetailsService {
@@ -35,7 +38,8 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
 
     private void validatePassword(UserDto userDto, UserEntity user) {
         if (user.getType().equalsIgnoreCase("OAuth")) {
-            user.setPassword(user.getUsername() + userDto.getKey());
+            String password = encoder.encode(user.getUsername() + userDto.getKey());
+            user.setPassword(password);
         } else if (Objects.isNull(user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Usuário padrão sem senha!");
         }

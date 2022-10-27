@@ -17,23 +17,29 @@ public class ReserveController {
     private ReserveService reserveService;
 
     @PostMapping
-    public ResponseEntity<Void> createReservePendingApprove(@RequestBody ReserveDto request){
+    public ResponseEntity<Void> createReservePendingApprove(@RequestBody ReserveDto request) {
         reserveService.saveReserve(request);
         var uri = URI.create("/reserves");
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping
-    public ResponseEntity<Void> updateReserve(@RequestBody ReserveDto request){
-        reserveService.saveReserve(request);
-        var uri = URI.create("/reserves");
-        return ResponseEntity.created(uri).build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateReserve(@PathVariable("id") Long id,
+                                              @RequestBody ReserveDto request) {
+        request.setId(id);
+        reserveService.updateReserve(request);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<ReserveDto>> getAllReserves(){
+    public ResponseEntity<List<ReserveDto>> getAllReserves() {
         List<ReserveDto> reserves = reserveService.getAllReserves();
+        return ResponseEntity.ok(reserves);
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReserveDto> getReserve(@PathVariable("id") Long id) {
+        ReserveDto reserves = reserveService.getReserve(id);
         return ResponseEntity.ok(reserves);
     }
 }

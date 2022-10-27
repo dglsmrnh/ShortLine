@@ -1,5 +1,6 @@
 package br.edu.cefsa.shortline.controller.request;
 
+import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -30,10 +33,12 @@ public class UserDto {
     private Boolean isCompany;
 
     public UserEntity toEntity(){
+        String passEncrypt = Objects.nonNull(password) ? BagUtil.encoder.encode(password) : null;
+
         return UserEntity.builder()
                 .userId(userId)
                 .username(username)
-                .password(password)
+                .password(passEncrypt)
                 .type(type)
                 .isCompany(isCompany)
                 .build();

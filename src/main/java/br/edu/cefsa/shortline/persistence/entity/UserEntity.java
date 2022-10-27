@@ -39,6 +39,9 @@ public class UserEntity implements UserDetails, Serializable {
         return List.of();
     }
 
+    public void setPassword(){
+
+    }
     @Override
     public String getPassword() {
         return this.password;

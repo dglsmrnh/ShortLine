@@ -1,5 +1,6 @@
 package br.edu.cefsa.shortline.controller.request;
 
+import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
@@ -7,9 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
+import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
 
 @Getter
 @Builder
@@ -17,6 +21,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReserveDto {
 
+    @Setter
     private Long id;
 
     @NotNull
@@ -40,7 +45,7 @@ public class ReserveDto {
                 .registerIn(LocalDateTime.now())
                 .idQueue(QueueEntity.builder().id(idQueue).build())
                 .idUser(UserEntity.builder().userId(idUser).build())
-                .status("P")
+                .status(PENDING)
                 .build();
     }
 
@@ -53,6 +58,7 @@ public class ReserveDto {
                 .checkIn(entity.getCheckIn())
                 .checkOut(entity.getCheckOut())
                 .status(entity.getStatus())
+                .registerIn(entity.getRegisterIn())
                 .build();
     }
 }
