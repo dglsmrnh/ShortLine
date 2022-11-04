@@ -1,6 +1,5 @@
 package br.edu.cefsa.shortline.config.security;
 
-import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.UserRepository;
 import br.edu.cefsa.shortline.controller.request.UserDto;
@@ -29,11 +28,11 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
                 userEntityModel.getAuthorities());
     }
 
-    public void saveUser(UserDto userDto) {
+    public Long saveUser(UserDto userDto) {
         UserEntity user = userDto.toEntity();
         validatePassword(userDto, user);
 
-        userRepository.save(user);
+        return userRepository.save(user).getUserId();
     }
 
     private void validatePassword(UserDto userDto, UserEntity user) {

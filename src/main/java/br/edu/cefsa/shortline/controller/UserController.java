@@ -18,8 +18,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> saveUser(@RequestBody UserDto userDto){
-        userDetailsService.saveUser(userDto);
-        URI uri = URI.create("/user");
+        Long userId = userDetailsService.saveUser(userDto);
+        URI uri = URI.create("/user/".concat(userId.toString()));
         return ResponseEntity.created(uri).build();
     }
 
