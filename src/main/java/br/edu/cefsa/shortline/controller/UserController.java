@@ -28,4 +28,10 @@ public class UserController {
         List<UserDto> users = userDetailsService.getUsers();
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable("username") String username){
+        var user = userDetailsService.getUserByUsername(username);
+        return ResponseEntity.ok(user);
+    }
 }

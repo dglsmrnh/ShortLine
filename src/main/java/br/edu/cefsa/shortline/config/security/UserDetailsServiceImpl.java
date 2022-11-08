@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static br.edu.cefsa.shortline.config.util.BagUtil.encoder;
 
@@ -47,5 +48,10 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
     public List<UserDto> getUsers(){
         List<UserEntity> users = userRepository.findAll();
         return users.stream().map(UserDto::toDto).toList();
+    }
+
+    public UserDto getUserByUsername(String username){
+        var user = userRepository.findByUsername(username).orElseThrow();
+        return UserDto.toDto(user);
     }
 }
