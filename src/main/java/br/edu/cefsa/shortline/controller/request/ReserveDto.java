@@ -5,10 +5,7 @@ import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -16,7 +13,9 @@ import java.time.LocalDateTime;
 import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
 
 @Getter
+@Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReserveDto {

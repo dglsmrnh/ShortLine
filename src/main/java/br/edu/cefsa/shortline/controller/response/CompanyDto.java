@@ -4,10 +4,7 @@ import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,16 +13,19 @@ import java.util.Objects;
 import static java.util.Objects.isNull;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CompanyDto {
 
     @Setter
     private Long id;
 
-    private Long idUser;
+    private String username;
 
+    private Long idUser;
     private Long idQueue;
 
     private String name;
@@ -42,7 +42,6 @@ public class CompanyDto {
         QueueEntity queueEntity = getQueueEntity();
 
         return CompanyEntity.builder()
-                .user(UserEntity.builder().userId(idUser).build())
                 .addressNumber(addressNumber)
                 .latitude(latitude)
                 .longitude(longitude)
