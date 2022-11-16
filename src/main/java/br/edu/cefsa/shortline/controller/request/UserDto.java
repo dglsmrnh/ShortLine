@@ -24,8 +24,20 @@ public class UserDto {
 
     private String username;
 
-    private String password;
+    private String name;
 
+    private String lastname;
+
+    private String cpfCnpj;
+
+    private String date;
+
+    private String gender;
+
+    private String baseImage;
+
+    private String telephone;
+    private String password;
     private String type;
 
     private String key;
@@ -41,14 +53,28 @@ public class UserDto {
                 .password(passEncrypt)
                 .type(type)
                 .isCompany(isCompany)
+                .baseImage(baseImage)
+                .cpfCnpj(cpfCnpj)
+                .date(date)
+                .gender(gender)
+                .lastname(lastname)
+                .name(name)
+                .telephone(telephone)
                 .build();
     }
 
     public static UserDto toDto(UserEntity user){
         return UserDto.builder()
+                .telephone(user.getTelephone())
                 .userId(user.getUserId())
                 .username(user.getUsername())
                 .isCompany(user.getIsCompany())
+                .baseImage(user.getBaseImage())
+                .cpfCnpj(user.getCpfCnpj())
+                .date(user.getDate())
+                .gender(user.getGender())
+                .name(user.getName())
+                .lastname(user.getLastname())
                 .build();
     }
 }

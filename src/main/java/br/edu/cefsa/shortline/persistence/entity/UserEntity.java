@@ -34,6 +34,20 @@ public class UserEntity implements UserDetails, Serializable {
     @Column(nullable = false)
     private Boolean isCompany;
 
+    private String telephone;
+
+    private String name;
+
+    private String lastname;
+
+    private String cpfCnpj;
+
+    private String date;
+
+    private String gender;
+
+    private String baseImage;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
