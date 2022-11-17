@@ -26,11 +26,12 @@ public class CompanyService {
     @Autowired
     private QueueService queueService;
 
-    public CompanyDto getByUserId(Long userId) {
+    public CompanyDto getByUserId(String userId) {
         if (isNull(userId))
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 
-        var companyEntity = repository.getCompanyFromUser(userId)
+        UserEntity user = userRepository.findByUsername(userId).orElseThrow();
+        var companyEntity = repository.getCompanyFromUser(user.getUserId())
                 .orElseThrow();
         return CompanyDto.toResponse(companyEntity);
     }

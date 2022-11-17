@@ -16,7 +16,7 @@ public class CompanyController {
 
     @GetMapping("/users/{userId}/companies")
     public ResponseEntity<CompanyDto> getAllCompany(@PathVariable("userId")
-                                                                     Long userId) {
+                                                                     String userId) {
         var companies = companyService.getByUserId(userId);
 
         return ResponseEntity.ok(companies);
