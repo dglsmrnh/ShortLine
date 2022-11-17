@@ -28,7 +28,7 @@ public class QueueRequest {
 
     private Integer averageWaiting;
 
-    private String status;
+    private Boolean active;
 
     public QueueEntity toNewEntity() {
         CompanyEntity companyEntity = nonNull(idCompany) ?
@@ -38,24 +38,15 @@ public class QueueRequest {
                 .averageWaiting(0)
                 .waitInLine(0)
                 .companyEntity(companyEntity)
-                .status("A")
+                .active(true)
                 .build();
     }
-
-    public QueueEntity toUpdateEntity(QueueEntity entity) {
-        return builderDefault().lastCode(entity.getLastCode())
-                .averageWaiting(entity.getAverageWaiting())
-                .waitInLine(entity.getWaitInLine())
-                .status(status)
-                .build();
-    }
-
     public static QueueRequest toResponse(QueueEntity queueEntity){
         Long idCompany = queueEntity.getCompanyEntity() == null ? null : queueEntity.getCompanyEntity().getId();
 
         return QueueRequest.builder()
                 .id(queueEntity.getId())
-                .status(queueEntity.getStatus())
+                .active(queueEntity.getActive())
                 .idCompany(idCompany)
                 .averageWaiting(queueEntity.getAverageWaiting())
                 .maxSize(queueEntity.getMaxSize())

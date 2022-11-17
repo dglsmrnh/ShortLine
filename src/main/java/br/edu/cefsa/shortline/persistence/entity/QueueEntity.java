@@ -32,7 +32,7 @@ public class QueueEntity {
 
     private Integer averageWaiting;
 
-    private String status;
+    private Boolean active;
 
     public static QueueEntity getChild(Long id){
         return QueueEntity.builder()

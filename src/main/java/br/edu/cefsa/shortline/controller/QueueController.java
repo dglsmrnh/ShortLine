@@ -17,10 +17,8 @@ public class QueueController {
     private QueueService service;
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateQueue(@PathVariable("id") Long idQueue,
-                                            @RequestBody QueueRequest request) {
-        request.setId(idQueue);
-        service.updateQueue(request);
+    public ResponseEntity<Void> updateQueue(@PathVariable("id") Long idQueue) {
+        service.updateQueue(idQueue);
 
         return ResponseEntity.noContent().build();
     }

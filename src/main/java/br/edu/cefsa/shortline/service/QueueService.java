@@ -14,10 +14,11 @@ public class QueueService {
     @Autowired
     private QueueRepository repository;
 
-    public void updateQueue(QueueRequest request){
-        QueueEntity queueEntity = repository.findById(request.getId())
+    public void updateQueue(Long id){
+        QueueEntity queueEntity = repository.findById(id)
                 .orElseThrow();
-        repository.save(request.toUpdateEntity(queueEntity));
+        queueEntity.setActive(false);
+        repository.save(queueEntity);
     }
 
     public QueueRequest getQueueById(Long id){
@@ -34,9 +35,8 @@ public class QueueService {
         Optional<QueueEntity> queueExiste = repository.findByCompanyEntityId(request.getIdCompany())
                 .stream().findFirst();
 
-        if (queueExiste.isEmpty())
-            return repository.save(request.toNewEntity());
+        queueExiste.ifPresent(queueEntity -> request.setId(queueEntity.getId()));
 
-        return queueExiste.get();
+        return repository.save(request.toNewEntity());
     }
 }
