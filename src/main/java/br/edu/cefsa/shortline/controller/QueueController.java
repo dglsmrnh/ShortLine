@@ -28,7 +28,7 @@ public class QueueController {
     @PostMapping
     public ResponseEntity<QueueEntity> createQueue(@RequestBody QueueRequest request) {
         QueueEntity queueEntity = service.saveQueue(request);
-
+        queueEntity.setCompanyEntity(null);
         URI uri = URI.create("/queues");
 
         return ResponseEntity.created(uri).body(queueEntity);
