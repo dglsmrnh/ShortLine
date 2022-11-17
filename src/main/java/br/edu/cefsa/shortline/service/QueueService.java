@@ -6,6 +6,8 @@ import br.edu.cefsa.shortline.persistence.repository.QueueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class QueueService {
 
@@ -28,7 +30,13 @@ public class QueueService {
                 .orElseThrow();
     }
 
-    public void saveQueue(QueueRequest request){
-        repository.save(request.toNewEntity());
+    public QueueEntity saveQueue(QueueRequest request){
+        Optional<QueueEntity> queueExiste = repository.findByCompanyEntityId(request.getIdCompany())
+                .stream().findFirst();
+
+        if (queueExiste.isEmpty())
+            return repository.save(request.toNewEntity());
+
+        return queueExiste.get();
     }
 }

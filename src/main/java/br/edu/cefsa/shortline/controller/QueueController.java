@@ -1,6 +1,7 @@
 package br.edu.cefsa.shortline.controller;
 
 import br.edu.cefsa.shortline.controller.request.QueueRequest;
+import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,12 @@ public class QueueController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createQueue(@RequestBody QueueRequest request) {
-        service.saveQueue(request);
+    public ResponseEntity<QueueEntity> createQueue(@RequestBody QueueRequest request) {
+        QueueEntity queueEntity = service.saveQueue(request);
 
         URI uri = URI.create("/queues");
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(queueEntity);
     }
 
     @GetMapping("/{id}")

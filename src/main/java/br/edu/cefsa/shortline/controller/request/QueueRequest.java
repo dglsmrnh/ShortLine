@@ -51,10 +51,12 @@ public class QueueRequest {
     }
 
     public static QueueRequest toResponse(QueueEntity queueEntity){
+        Long idCompany = queueEntity.getCompanyEntity() == null ? null : queueEntity.getCompanyEntity().getId();
+
         return QueueRequest.builder()
                 .id(queueEntity.getId())
                 .status(queueEntity.getStatus())
-                .idCompany(queueEntity.getCompanyEntity().getId())
+                .idCompany(idCompany)
                 .averageWaiting(queueEntity.getAverageWaiting())
                 .maxSize(queueEntity.getMaxSize())
                 .vacancies(queueEntity.getVacancies())
