@@ -35,8 +35,17 @@ public class QueueService {
         Optional<QueueEntity> queueExiste = repository.findByCompanyEntityId(request.getIdCompany())
                 .stream().findFirst();
 
-        queueExiste.ifPresent(queueEntity -> request.setId(queueEntity.getId()));
+        if (queueExiste.isEmpty()){
+            repository.save(request.toNewEntity());
+        }
 
-        return repository.save(request.toNewEntity());
+        QueueEntity queueEntity = queueExiste.get();
+        queueEntity.setMaxSize(request.getMaxSize());
+        queueEntity.setLastCode(0);
+        queueEntity.setVacancies(request.getMaxSize());
+        queueEntity.setAverageWaiting(0);
+        queueEntity.setActive(true);
+
+        return repository.save(queueEntity);
     }
 }
