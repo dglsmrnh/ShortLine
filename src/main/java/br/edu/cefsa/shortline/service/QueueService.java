@@ -44,6 +44,7 @@ public class QueueService {
         queueEntity.setLastCode(0);
         queueEntity.setVacancies(request.getMaxSize());
         queueEntity.setAverageWaiting(0);
+        queueEntity.setWaitInLine(0);
         queueEntity.setActive(true);
 
         return repository.save(queueEntity);
