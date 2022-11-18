@@ -34,16 +34,22 @@ public class UserEntity implements UserDetails, Serializable {
     @Column(nullable = false)
     private Boolean isCompany;
 
+    @Column
     private String telephone;
 
+    @Column
     private String name;
 
+    @Column
     private String lastname;
 
+    @Column
     private String cpfCnpj;
 
+    @Column
     private String date;
 
+    @Column
     private String gender;
 
     private String baseImage;
