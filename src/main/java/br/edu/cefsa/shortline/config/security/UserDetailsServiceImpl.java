@@ -48,7 +48,7 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
         userEntity.setCpfCnpj(userDto.getCpfCnpj());
         userEntity.setLastname(userDto.getLastname());
 
-        if(userDto.getPassword() != null && !userDto.getPassword().isBlank())
+        if(userDto.getPassword() != null && !userDto.getPassword().isBlank() && !userDto.getPassword().contains("*"))
             userEntity.setPassword(userDto.getPassword());
 
         userEntity.setTelephone(userDto.getTelephone());
