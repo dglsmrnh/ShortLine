@@ -1,6 +1,7 @@
 package br.edu.cefsa.shortline.controller;
 
 import br.edu.cefsa.shortline.controller.response.CompanyDto;
+import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,12 @@ public class CompanyController {
         companyService.updateCompany(company);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/companies/{id}/queues")
+    public ResponseEntity<QueueEntity> getQueue(@PathVariable("id") Long id) {
+        QueueEntity queue = companyService.getQueueByCompanyId(id);
+        queue.setCompanyEntity(null);
+        return ResponseEntity.ok(queue);
     }
 }

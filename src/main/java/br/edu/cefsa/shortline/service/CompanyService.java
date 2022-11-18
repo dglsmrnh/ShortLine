@@ -2,6 +2,7 @@ package br.edu.cefsa.shortline.service;
 
 import br.edu.cefsa.shortline.controller.response.CompanyDto;
 import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
+import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.CompanyRepository;
 import br.edu.cefsa.shortline.persistence.repository.UserRepository;
@@ -50,5 +51,9 @@ public class CompanyService {
         CompanyEntity entityUpdated = request.updateEntity(companyEntity);
 
         repository.save(entityUpdated);
+    }
+
+    public QueueEntity getQueueByCompanyId(Long id){
+        return queueService.getQueue(id);
     }
 }

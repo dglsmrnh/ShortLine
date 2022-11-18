@@ -49,4 +49,8 @@ public class QueueService {
 
         return repository.save(queueEntity);
     }
+
+    public QueueEntity getQueue(Long id){
+        return repository.findByCompanyEntityId(id).stream().findFirst().orElseThrow();
+    }
 }
