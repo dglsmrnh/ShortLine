@@ -52,6 +52,12 @@ public class UserEntity implements UserDetails, Serializable {
     @Column
     private String gender;
 
+    @Column
+    private String address;
+
+    @Column
+    private String email;
+
     private String baseImage;
 
     @Override

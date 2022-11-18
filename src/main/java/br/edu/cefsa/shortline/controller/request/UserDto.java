@@ -24,6 +24,7 @@ public class UserDto {
 
     private String username;
 
+    private String address;
     private String name;
 
     private String lastname;
@@ -42,6 +43,8 @@ public class UserDto {
 
     private String key;
 
+    private String email;
+
     private Boolean isCompany;
 
     public UserEntity toEntity(){
@@ -49,6 +52,7 @@ public class UserDto {
 
         return UserEntity.builder()
                 .userId(userId)
+                .address(address)
                 .username(username)
                 .password(passEncrypt)
                 .type(type)
@@ -59,12 +63,15 @@ public class UserDto {
                 .gender(gender)
                 .lastname(lastname)
                 .name(name)
+                .email(email)
                 .telephone(telephone)
                 .build();
     }
 
     public static UserDto toDto(UserEntity user){
         return UserDto.builder()
+                .email(user.getEmail())
+                .address(user.getAddress())
                 .telephone(user.getTelephone())
                 .userId(user.getUserId())
                 .username(user.getUsername())
