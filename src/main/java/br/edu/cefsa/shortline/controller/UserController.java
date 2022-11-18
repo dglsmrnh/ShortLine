@@ -34,4 +34,12 @@ public class UserController {
         var user = userDetailsService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<Void> atualiza(@PathVariable("username") String username,
+                                         @RequestBody UserDto userDto){
+        userDetailsService.atualiza(userDto, username);
+
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -36,6 +36,26 @@ public record UserDetailsServiceImpl(UserRepository userRepository) implements U
         return userRepository.save(user).getUserId();
     }
 
+    public void atualiza(UserDto userDto, String username){
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow();
+
+        userEntity.setUsername(userDto.getUsername());
+        userEntity.setDate(userDto.getDate());
+        userEntity.setEmail(userDto.getEmail());
+        userEntity.setAddress(userDto.getAddress());
+        userEntity.setGender(userDto.getGender());
+        userEntity.setName(userDto.getName());
+        userEntity.setCpfCnpj(userDto.getCpfCnpj());
+        userEntity.setLastname(userDto.getLastname());
+
+        if(userDto.getPassword() != null && !userDto.getPassword().isBlank())
+            userEntity.setPassword(userDto.getPassword());
+
+        userEntity.setTelephone(userDto.getTelephone());
+
+        userRepository.save(userEntity);
+    }
+
     private void validatePassword(UserDto userDto, UserEntity user) {
         if (user.getType().equalsIgnoreCase("OAuth")) {
             String password = encoder.encode(user.getUsername() + userDto.getKey());
