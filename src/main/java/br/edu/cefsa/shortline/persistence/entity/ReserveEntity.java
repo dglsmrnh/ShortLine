@@ -23,13 +23,21 @@ public class ReserveEntity {
     @ManyToOne
     private QueueEntity idQueue;
 
+    @Column
     private LocalDateTime registerIn;
 
+    @Column
     private LocalDateTime checkIn;
 
+    @Column
     private LocalDateTime checkOut;
 
+    @Column
     private Integer code;
 
+    @Column
     private String status;
+
+    @Column
+    private Integer numberOfPeople;
 }

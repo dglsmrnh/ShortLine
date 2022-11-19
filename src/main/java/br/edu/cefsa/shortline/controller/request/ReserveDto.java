@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
+import static br.edu.cefsa.shortline.config.util.BagUtil.encoder;
 
 @Getter
 @Setter
@@ -28,6 +29,8 @@ public class ReserveDto {
     @NotNull
     private Long idQueue;
 
+    private Integer numberOfPeople;
+
     private LocalDateTime registerIn;
 
     private LocalDateTime checkIn;
@@ -40,6 +43,7 @@ public class ReserveDto {
 
     public ReserveEntity toNewReserveEntity(){
         return ReserveEntity.builder()
+                .numberOfPeople(numberOfPeople)
                 .registerIn(LocalDateTime.now())
                 .idQueue(QueueEntity.builder().id(idQueue).build())
                 .user(UserEntity.builder().userId(idUser).build())
@@ -49,6 +53,7 @@ public class ReserveDto {
 
     public static ReserveDto toReserveDto(ReserveEntity entity){
         return ReserveDto.builder()
+                .numberOfPeople(entity.getNumberOfPeople())
                 .id(entity.getId())
                 .idQueue(entity.getIdQueue().getId())
                 .idUser(entity.getUser().getUserId())

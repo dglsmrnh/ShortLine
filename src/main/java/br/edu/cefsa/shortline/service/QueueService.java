@@ -41,7 +41,7 @@ public class QueueService {
                 .stream().findFirst();
 
         if (queueExiste.isEmpty()){
-            repository.save(request.toNewEntity());
+            return repository.save(request.toNewEntity());
         }
 
         QueueEntity queueEntity = queueExiste.get();
