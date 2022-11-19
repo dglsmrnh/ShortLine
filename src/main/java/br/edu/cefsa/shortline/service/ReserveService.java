@@ -22,11 +22,16 @@ public class ReserveService {
     @Autowired
     private QueueService queueService;
 
-    public List<ReserveDto> getAllReserves(String pending, String username) {
+    public List<ReserveDto> getAllReserves(String pending, String username, String reserveLogic) {
         List<ReserveEntity> reservesEntity;
 
         if (pending.equalsIgnoreCase("true")){
             reservesEntity = repository.findByStatus(PENDING);
+        } else if (reserveLogic.equalsIgnoreCase("true") && username != null) {
+            reservesEntity = repository.findByStatusIn(List.of(PENDING, ACCEPT));
+            if (!reservesEntity.isEmpty()) {
+                throw new RuntimeException();
+            }
         } else if (username != null) {
             reservesEntity = repository.findByUserUsername(username);
         } else {

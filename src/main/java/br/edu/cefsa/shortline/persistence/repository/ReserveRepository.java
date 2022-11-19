@@ -8,5 +8,6 @@ import java.util.List;
 public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
 
     List<ReserveEntity> findByStatus(String status);
+    List<ReserveEntity> findByStatusIn(List<String> status);
     List<ReserveEntity> findByUserUsername(String username);
 }
