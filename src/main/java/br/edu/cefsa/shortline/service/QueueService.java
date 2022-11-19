@@ -2,7 +2,9 @@ package br.edu.cefsa.shortline.service;
 
 import br.edu.cefsa.shortline.controller.request.QueueRequest;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
+import br.edu.cefsa.shortline.persistence.entity.UserEntity;
 import br.edu.cefsa.shortline.persistence.repository.QueueRepository;
+import br.edu.cefsa.shortline.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class QueueService {
 
     @Autowired
     private QueueRepository repository;
+
+    @Autowired
+    private UserRepository repositoryUser;
 
     public void updateQueue(Long id){
         QueueEntity queueEntity = repository.findById(id)
@@ -52,5 +57,16 @@ public class QueueService {
 
     public QueueEntity getQueue(Long id){
         return repository.findByCompanyEntityId(id).stream().findFirst().orElseThrow();
+    }
+
+    public QueueEntity getQueue(String address){
+        if (address == null){
+            return repository.findAll().stream()
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        UserEntity userEntity = repositoryUser.findByAddress(address).orElseThrow();
+        return repository.findByCompanyEntityUserUserId(userEntity.getUserId()).stream().findFirst().orElseThrow();
     }
 }

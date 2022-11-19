@@ -37,4 +37,12 @@ public class QueueController {
         var queue = service.getQueueById(idQueue);
         return ResponseEntity.ok(queue);
     }
+
+
+    @GetMapping
+    public ResponseEntity<QueueEntity> getQueueParams(@RequestParam("address") String address) {
+        var queue = service.getQueue(address);
+        queue.setCompanyEntity(null);
+        return ResponseEntity.ok(queue);
+    }
 }
