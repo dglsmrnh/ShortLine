@@ -18,7 +18,7 @@ public class ReserveEntity {
     private Long id;
 
     @ManyToOne
-    private UserEntity idUser;
+    private UserEntity user;
 
     @ManyToOne
     private QueueEntity idQueue;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static br.edu.cefsa.shortline.config.util.BagUtil.ACCEPT;
+import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
 
 @Service
 public class ReserveService {
@@ -21,8 +22,16 @@ public class ReserveService {
     @Autowired
     private QueueService queueService;
 
-    public List<ReserveDto> getAllReserves() {
-        List<ReserveEntity> reservesEntity = repository.findAll();
+    public List<ReserveDto> getAllReserves(String pending, String username) {
+        List<ReserveEntity> reservesEntity;
+
+        if (pending.equalsIgnoreCase("true")){
+            reservesEntity = repository.findByStatus(PENDING);
+        } else if (username != null) {
+            reservesEntity = repository.findByUserUsername(username)
+        } else {
+            reservesEntity = repository.findAll();
+        }
 
         return reservesEntity.stream().map(ReserveDto::toReserveDto).toList();
     }

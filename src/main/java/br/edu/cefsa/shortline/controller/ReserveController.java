@@ -32,8 +32,9 @@ public class ReserveController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReserveDto>> getAllReserves() {
-        List<ReserveDto> reserves = reserveService.getAllReserves();
+    public ResponseEntity<List<ReserveDto>> getAllReserves(@RequestParam(value = "pending", defaultValue = "true") String pending,
+                                                           @RequestParam(value = "username") String username) {
+        List<ReserveDto> reserves = reserveService.getAllReserves(pending, username);
         return ResponseEntity.ok(reserves);
     }
 
