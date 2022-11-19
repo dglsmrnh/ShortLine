@@ -28,7 +28,7 @@ public class ReserveService {
         if (pending.equalsIgnoreCase("true")){
             reservesEntity = repository.findByStatus(PENDING);
         } else if (username != null) {
-            reservesEntity = repository.findByUserUsername(username)
+            reservesEntity = repository.findByUserUsername(username);
         } else {
             reservesEntity = repository.findAll();
         }
