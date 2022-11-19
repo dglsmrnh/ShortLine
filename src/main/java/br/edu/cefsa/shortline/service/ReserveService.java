@@ -50,8 +50,17 @@ public class ReserveService {
             reserveEntity.setStatus(request.getStatus());
             repository.save(reserveEntity);
         } else {
-            reserveEntity.setCheckIn(request.getCheckIn());
-            reserveEntity.setCheckOut(request.getCheckOut());
+            if(request.getCheckIn() != null)
+                reserveEntity.setCheckIn(request.getCheckIn());
+
+            if(request.getCheckOut() != null)
+                reserveEntity.setCheckOut(request.getCheckOut());
+
+            if (request.getStatus() != null && (request.getStatus().equalsIgnoreCase("R")
+                    || request.getStatus().equalsIgnoreCase("O"))) {
+                reserveEntity.setStatus(request.getStatus());
+            }
+            repository.save(reserveEntity);
         }
     }
 

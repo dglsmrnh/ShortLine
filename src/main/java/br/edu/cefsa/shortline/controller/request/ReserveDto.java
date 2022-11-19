@@ -9,8 +9,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
-import static br.edu.cefsa.shortline.config.util.BagUtil.encoder;
+import static br.edu.cefsa.shortline.config.util.BagUtil.*;
 
 @Getter
 @Setter
@@ -29,6 +28,9 @@ public class ReserveDto {
     @NotNull
     private Long idQueue;
 
+    private String situation;
+
+    private String nameCompany;
     private Integer numberOfPeople;
 
     private LocalDateTime registerIn;
@@ -52,7 +54,22 @@ public class ReserveDto {
     }
 
     public static ReserveDto toReserveDto(ReserveEntity entity){
+        var nameCompany = entity.getIdQueue().getCompanyEntity().getName();
+        String situation;
+
+        if(entity.getStatus().equalsIgnoreCase(PENDING)) {
+            situation = "Pendente";
+        } else if(entity.getStatus().equalsIgnoreCase(ACCEPT)){
+            situation = "Aceita";
+        } else if(entity.getStatus().equalsIgnoreCase("R"))
+            situation = "Recusada";
+        else {
+            situation = "Finalizada";
+        }
+
         return ReserveDto.builder()
+                .situation(situation)
+                .nameCompany(nameCompany)
                 .numberOfPeople(entity.getNumberOfPeople())
                 .id(entity.getId())
                 .idQueue(entity.getIdQueue().getId())
