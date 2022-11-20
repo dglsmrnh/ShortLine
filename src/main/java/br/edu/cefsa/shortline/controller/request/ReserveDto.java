@@ -43,6 +43,8 @@ public class ReserveDto {
 
     private String status;
 
+    private String user;
+
     public ReserveEntity toNewReserveEntity(){
         return ReserveEntity.builder()
                 .numberOfPeople(numberOfPeople)
@@ -79,6 +81,7 @@ public class ReserveDto {
                 .checkOut(entity.getCheckOut())
                 .status(entity.getStatus())
                 .registerIn(entity.getRegisterIn())
+                .user(entity.getUser().getName() + " " + entity.getUser().getLastname())
                 .build();
     }
 }
