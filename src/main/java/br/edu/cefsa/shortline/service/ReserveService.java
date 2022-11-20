@@ -2,13 +2,16 @@ package br.edu.cefsa.shortline.service;
 
 import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.controller.request.ReserveDto;
+import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
+import br.edu.cefsa.shortline.persistence.repository.CompanyRepository;
 import br.edu.cefsa.shortline.persistence.repository.ReserveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static br.edu.cefsa.shortline.config.util.BagUtil.ACCEPT;
 import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
@@ -22,10 +25,14 @@ public class ReserveService {
     @Autowired
     private QueueService queueService;
 
-    public List<ReserveDto> getAllReserves(String pending, String username, String reserveLogic) {
+    public List<ReserveDto> getAllReserves(String pending, String username, String reserveLogic,
+                                           String isCompany) {
         List<ReserveEntity> reservesEntity;
 
-        if (pending.equalsIgnoreCase("true")){
+        if (isCompany.equalsIgnoreCase("true") && username != null){
+            reservesEntity = repository.findByQueueCompanyEntityUserUsername(username);
+        }
+        else if (pending.equalsIgnoreCase("true")){
             reservesEntity = repository.findByStatus(PENDING);
         } else if (reserveLogic.equalsIgnoreCase("true") && username != null) {
             reservesEntity = repository.findByStatusIn(List.of(PENDING, ACCEPT));

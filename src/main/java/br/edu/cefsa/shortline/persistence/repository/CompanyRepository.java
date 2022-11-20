@@ -11,4 +11,8 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
     @Query("SELECT company FROM CompanyEntity company " +
             "where company.user.id = :userId")
     Optional<CompanyEntity> getCompanyFromUser(Long userId);
+
+    @Query("SELECT company FROM CompanyEntity company " +
+            "where company.user.username = :username")
+    Optional<CompanyEntity> getCompanyFromUser(String username);
 }

@@ -21,7 +21,7 @@ public class ReserveEntity {
     private UserEntity user;
 
     @ManyToOne
-    private QueueEntity idQueue;
+    private QueueEntity queue;
 
     @Column
     private LocalDateTime registerIn;

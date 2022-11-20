@@ -47,14 +47,14 @@ public class ReserveDto {
         return ReserveEntity.builder()
                 .numberOfPeople(numberOfPeople)
                 .registerIn(LocalDateTime.now())
-                .idQueue(QueueEntity.builder().id(idQueue).build())
+                .queue(QueueEntity.builder().id(idQueue).build())
                 .user(UserEntity.builder().userId(idUser).build())
                 .status(PENDING)
                 .build();
     }
 
     public static ReserveDto toReserveDto(ReserveEntity entity){
-        var nameCompany = entity.getIdQueue().getCompanyEntity().getName();
+        var nameCompany = entity.getQueue().getCompanyEntity().getName();
         String situation;
 
         if(entity.getStatus().equalsIgnoreCase(PENDING)) {
@@ -72,7 +72,7 @@ public class ReserveDto {
                 .nameCompany(nameCompany)
                 .numberOfPeople(entity.getNumberOfPeople())
                 .id(entity.getId())
-                .idQueue(entity.getIdQueue().getId())
+                .idQueue(entity.getQueue().getId())
                 .idUser(entity.getUser().getUserId())
                 .code(entity.getCode())
                 .checkIn(entity.getCheckIn())

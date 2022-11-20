@@ -34,8 +34,9 @@ public class ReserveController {
     @GetMapping
     public ResponseEntity<List<ReserveDto>> getAllReserves(@RequestParam(value = "pending", defaultValue = "true") String pending,
                                                            @RequestParam(value = "has_reserve_search_logic", defaultValue = "false") String reserveLogic,
+                                                           @RequestParam(value = "is_company", defaultValue = "false") String isCompany,
                                                            @RequestParam(value = "username", required = false)  String username) {
-        List<ReserveDto> reserves = reserveService.getAllReserves(pending, username, reserveLogic);
+        List<ReserveDto> reserves = reserveService.getAllReserves(pending, username, reserveLogic, isCompany);
         return ResponseEntity.ok(reserves);
     }
 
