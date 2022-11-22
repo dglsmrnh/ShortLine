@@ -57,7 +57,10 @@ public class ReserveService {
 
         if (isReserveAccept(request, reserveEntity)) {
             QueueEntity queue = queueService.getQueueEntityById(request.getIdQueue());
-            reserveEntity.setCode(queue.getLastCode() + 1);
+            queue.setLastCode(queue.getLastCode() + 1);
+            queueService.saveQueue(queue);
+
+            reserveEntity.setCode(queue.getLastCode());
             reserveEntity.setStatus(request.getStatus());
             repository.save(reserveEntity);
         } else {

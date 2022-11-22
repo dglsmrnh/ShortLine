@@ -19,6 +19,9 @@ public class QueueService {
     @Autowired
     private UserRepository repositoryUser;
 
+    public void saveQueue(QueueEntity queue) {
+        repository.save(queue);
+    }
     public void updateQueue(Long id){
         QueueEntity queueEntity = repository.findById(id)
                 .orElseThrow();
