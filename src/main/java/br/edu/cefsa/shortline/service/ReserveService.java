@@ -1,22 +1,22 @@
 package br.edu.cefsa.shortline.service;
 
-import br.edu.cefsa.shortline.config.util.BagUtil;
 import br.edu.cefsa.shortline.controller.request.ReserveDto;
-import br.edu.cefsa.shortline.persistence.entity.CompanyEntity;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
-import br.edu.cefsa.shortline.persistence.repository.CompanyRepository;
 import br.edu.cefsa.shortline.persistence.repository.ReserveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static br.edu.cefsa.shortline.config.util.BagUtil.ACCEPT;
 import static br.edu.cefsa.shortline.config.util.BagUtil.PENDING;
 
 @Service
+@EnableScheduling
 public class ReserveService {
 
     @Autowired
@@ -31,8 +31,7 @@ public class ReserveService {
 
         if (isCompany.equalsIgnoreCase("true") && username != null){
             reservesEntity = repository.findByQueueCompanyEntityUserUsername(username);
-        }
-        else if (pending.equalsIgnoreCase("true")){
+        } else if (pending.equalsIgnoreCase("true")){
             reservesEntity = repository.findByStatus(PENDING);
         } else if (reserveLogic.equalsIgnoreCase("true") && username != null) {
             reservesEntity = repository.findByStatusInAndUserUsername(List.of(PENDING, ACCEPT), username);
@@ -71,6 +70,8 @@ public class ReserveService {
             if (request.getStatus() != null && (request.getStatus().equalsIgnoreCase("R")
                     || request.getStatus().equalsIgnoreCase("O"))) {
                 reserveEntity.setStatus(request.getStatus());
+                QueueEntity queue = queueService.getQueueEntityById(request.getIdQueue());
+                reserveEntity.setCode(queue.getLastCode() - 1);
             }
             repository.save(reserveEntity);
         }
@@ -90,4 +91,5 @@ public class ReserveService {
         return repository.findById(id)
                 .orElseThrow();
     }
+
 }
