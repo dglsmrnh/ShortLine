@@ -73,10 +73,18 @@ public class ReserveService {
             if (request.getStatus() != null && (request.getStatus().equalsIgnoreCase("R")
                     || request.getStatus().equalsIgnoreCase("O"))) {
                 reserveEntity.setStatus(request.getStatus());
+                repository.save(reserveEntity);
+
                 QueueEntity queue = queueService.getQueueEntityById(request.getIdQueue());
-                reserveEntity.setCode(queue.getLastCode() - 1);
+                queue.setLastCode(queue.getLastCode() - 1);
+                queueService.saveQueue(queue);
+
+                List<ReserveEntity> reservasToBatch = repository.findByQueueIdAndStatus(request.getId(), ACCEPT);
+                reservasToBatch.forEach(reserve -> reserve.setCode(reserve.getCode() - 1));
+                repository.saveAll(reservasToBatch);
+            } else {
+                repository.save(reserveEntity);
             }
-            repository.save(reserveEntity);
         }
     }
 
