@@ -3,6 +3,7 @@ package br.edu.cefsa.shortline.controller.request;
 import br.edu.cefsa.shortline.persistence.entity.QueueEntity;
 import br.edu.cefsa.shortline.persistence.entity.ReserveEntity;
 import br.edu.cefsa.shortline.persistence.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -44,6 +45,21 @@ public class ReserveDto {
     private String status;
 
     private String user;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getRegisterIn() {
+        return registerIn;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getCheckIn() {
+        return checkIn;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getCheckOut() {
+        return checkOut;
+    }
 
     public ReserveEntity toNewReserveEntity(){
         return ReserveEntity.builder()
