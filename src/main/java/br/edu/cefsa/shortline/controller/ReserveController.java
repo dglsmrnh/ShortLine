@@ -45,4 +45,10 @@ public class ReserveController {
         ReserveDto reserves = reserveService.getReserve(id);
         return ResponseEntity.ok(reserves);
     }
+
+    @PatchMapping("/queues/{id}")
+    public ResponseEntity<Void> updateReserveCode(@PathVariable("id") Long id) {
+        reserveService.update(id);
+        return ResponseEntity.noContent().build();
+    }
 }

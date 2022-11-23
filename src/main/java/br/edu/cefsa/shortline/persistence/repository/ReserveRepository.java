@@ -14,4 +14,5 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
     List<ReserveEntity> findByQueueCompanyEntityUserUsername(String username);
 
     List<ReserveEntity> findByQueueIdAndStatus(Long id, String status);
+    List<ReserveEntity> findByQueueId(Long id);
 }
